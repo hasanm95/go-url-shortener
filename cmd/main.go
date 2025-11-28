@@ -9,12 +9,14 @@ import (
 	"github.com/hasanm95/go-url-shortener/internal/config"
 	"github.com/hasanm95/go-url-shortener/internal/handler"
 	"github.com/hasanm95/go-url-shortener/internal/router"
+	"github.com/hasanm95/go-url-shortener/internal/service"
 )
 
 func main(){
 	cfg := config.Load()
 
-  urlHandler := handler.NewURLHandler()
+  urlService := service.NewURLService()
+  urlHandler := handler.NewURLHandler(urlService)
 
 	r := router.SetupRouter(urlHandler)
 
