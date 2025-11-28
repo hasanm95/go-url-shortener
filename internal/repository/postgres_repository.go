@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/hasanm95/go-url-shortener/internal/models"
 )
@@ -15,13 +16,38 @@ func NewPostgresRepository(db *sql.DB) *PostgresRepository  {
 }
 
 func (r *PostgresRepository) Create(url *models.URL) error {
+	query := `INSERT INTO urls (original_url, short_code) VALUES ($1, $2) RETURNING id`
+
+	err := r.db.QueryRow(query, url.OriginalURL, url.ShortCode).Scan(&url.ID)
+
+	if err != nil {
+		return fmt.Errorf("error creating url: %w", err)
+	}
+
 	return nil
 }
 
 func (r *PostgresRepository) GetByShortCode(shortCode string) (*models.URL, error) {
-	return &models.URL{OriginalURL: "https://google.com", ShortCode: "abc123"}, nil
+	url := &models.URL{}
+	query := `SELECT id, original_url, short_code, created_at, clicks FROM urls WHERE short_code = $1`
+
+	err := r.db.QueryRow(query, shortCode).Scan(&url.ID, &url.OriginalURL, &url.ShortCode, &url.CreatedAt, &url.Clicks)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("url not found")
+		}
+		return nil, fmt.Errorf("error getting url: %w", err)
+	}
+
+	return url, nil
 }
 
 func (r *PostgresRepository) IncrementClicks(shortCode string) error {
+	query := `UPDATE urls SET clicks = clicks + 1 WHERE short_code = $1`
+	_, err := r.db.Exec(query, shortCode)
+	if err != nil {
+		return fmt.Errorf("error incrementing clicks: %w", err)
+	}
 	return nil
 }
