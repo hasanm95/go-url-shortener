@@ -7,7 +7,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/hasanm95/go-url-shortener/internal/config"
+	"github.com/hasanm95/go-url-shortener/internal/database"
 	"github.com/hasanm95/go-url-shortener/internal/handler"
+	"github.com/hasanm95/go-url-shortener/internal/repository"
 	"github.com/hasanm95/go-url-shortener/internal/router"
 	"github.com/hasanm95/go-url-shortener/internal/service"
 )
@@ -15,7 +17,16 @@ import (
 func main(){
 	cfg := config.Load()
 
-  urlService := service.NewURLService()
+  db, err := database.NewPostgresDB(cfg.DatabaseURL)
+
+  if err != nil {
+    log.Println(err)
+    return;
+  }
+
+  repo := repository.NewPostgresRepository(db)
+
+  urlService := service.NewURLService(repo)
   urlHandler := handler.NewURLHandler(urlService)
 
 	r := router.SetupRouter(urlHandler)
