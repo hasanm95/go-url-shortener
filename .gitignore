@@ -1,0 +1,161 @@
+# Binaries for programs and plugins
+/bin/
+/build/
+/dist/
+/out/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, coverage
+*.test
+coverage.out
+*.coverprofile
+testdata/
+
+# Go specific
+*.exe
+*.test
+vendor/
+*.lock
+Godeps/
+.idea_modules/
+
+# Go build cache
+**/go-build-*
+/pkg/
+/tmp/
+
+# Dependency directories (remove if you vendor dependencies)
+vendor/
+
+# Go workspace file
+go.work
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.envrc
+*.secret
+
+# Editor and OS files
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Logs and runtime files
+*.log
+logs/
+*.pid
+*.sock
+tmp/
+temp/
+
+# SQLite, leveldb, bolt etc.
+*.db
+*.sqlite
+*.sqlite3
+
+# JetBrains IDEs
+.idea/
+*.iws
+
+# Mac Finder attributes
+.AppleDouble
+.LSOverride
+
+# Coverage and reports
+coverage/
+reports/
+
+# Misc
+coverage.out
+*.swp
+*~
+.project
+```// filepath: /Users/hasanm025/practices/go-url-shortener/.gitignore
+# Binaries for programs and plugins
+/bin/
+/build/
+/dist/
+/out/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, coverage
+*.test
+coverage.out
+*.coverprofile
+testdata/
+
+# Go specific
+*.exe
+*.test
+vendor/
+*.lock
+Godeps/
+.idea_modules/
+
+# Go build cache
+**/go-build-*
+/pkg/
+/tmp/
+
+# Dependency directories (remove if you vendor dependencies)
+vendor/
+
+# Go workspace file
+go.work
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.envrc
+*.secret
+
+# Editor and OS files
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Logs and runtime files
+*.log
+logs/
+*.pid
+*.sock
+tmp/
+temp/
+
+# SQLite, leveldb, bolt etc.
+*.db
+*.sqlite
+*.sqlite3
+
+# JetBrains IDEs
+.idea/
+*.iws
+
+# Mac Finder attributes
+.AppleDouble
+.LSOverride
+
+# Coverage and reports
+coverage/
+reports/
+
+# Misc
+coverage.out
+*.swp
+*~
+.project
