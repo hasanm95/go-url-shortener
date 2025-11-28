@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/hasanm95/go-url-shortener/internal/config"
 	"github.com/hasanm95/go-url-shortener/internal/database"
 	"github.com/hasanm95/go-url-shortener/internal/handler"
@@ -30,13 +28,6 @@ func main(){
   urlHandler := handler.NewURLHandler(urlService)
 
 	r := router.SetupRouter(urlHandler)
-
-
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-		  "message": "pong",
-		})
-	})
 
   port := fmt.Sprintf(":%s", cfg.Port)
 

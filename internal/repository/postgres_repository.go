@@ -51,3 +51,13 @@ func (r *PostgresRepository) IncrementClicks(shortCode string) error {
 	}
 	return nil
 }
+
+func (r *PostgresRepository) UpdateShortCode(id int, shortCode string) error {
+	query := `UPDATE urls SET short_code = $2 WHERE id = $1`
+	_, err := r.db.Exec(query, id, shortCode)
+
+	if err != nil {
+		return fmt.Errorf("error updating short code: %w", err)
+	}
+	return nil
+}
