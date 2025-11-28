@@ -42,5 +42,9 @@ func (s *URLService) GetOriginalURL(shortCode string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	// Increment clicks
+	s.repository.IncrementClicks(shortCode)
+
 	return url.OriginalURL, nil
 }
