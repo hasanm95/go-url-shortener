@@ -19,10 +19,10 @@ func main(){
 
   db, err := database.NewPostgresDB(cfg.DatabaseURL)
 
-  if err != nil {
-    log.Println(err)
-    return;
-  }
+	if err != nil {
+		log.Fatal("Failed to connect to database:", err)
+	}
+	defer db.Close()
 
   repo := repository.NewPostgresRepository(db)
 
