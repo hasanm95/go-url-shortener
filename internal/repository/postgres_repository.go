@@ -76,3 +76,13 @@ func (r *PostgresRepository) UpdateShortURL(shortCode string, url string) (*mode
 	}
 	return urlObj, nil
 }
+
+func (r *PostgresRepository) DeleteShortURL(shortCode string) error {
+	query := `DELETE FROM urls WHERE short_code = $1`
+	_, err := r.db.Exec(query, shortCode)
+
+	if err != nil {
+		return err
+	}
+	return  nil
+}

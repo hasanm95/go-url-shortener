@@ -65,6 +65,7 @@ func (h *URLHandler) RetriveOriginalURL(c *gin.Context){
 		c.JSON(http.StatusNotFound, gin.H{
 			"error": "URL not found",
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, url)
@@ -85,8 +86,24 @@ func (h *URLHandler) UpdateShortURL(c *gin.Context){
 		c.JSON(http.StatusNotFound, gin.H{
 			"error": "URL not found",
 		})
+		return
 	}
 
 
 	c.JSON(http.StatusOK, url)
+}
+
+func (h *URLHandler) DeleteShortURL(c *gin.Context){
+	shortCode := c.Param("shortCode")
+	err := h.service.DeleteShortURL(shortCode)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "URL not found",
+		})
+		return
+	}
+
+
+	c.JSON(http.StatusNoContent, gin.H{"success": true})
 }

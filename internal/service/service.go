@@ -68,3 +68,14 @@ func (s *URLService) UpdateShortURL(shortCode string, url string)(*models.URL, e
 
 	return urlObj, nil
 }
+
+
+func (s *URLService) DeleteShortURL(shortCode string) error {
+	err := s.repository.DeleteShortURL(shortCode)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
