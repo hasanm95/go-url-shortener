@@ -56,3 +56,16 @@ func (h *URLHandler) RedirectURL(c *gin.Context){
 
 	c.Redirect(http.StatusMovedPermanently, originalUrl)
 }
+
+func (h *URLHandler) RetriveOriginalURL(c *gin.Context){
+	shortCode := c.Param("shortCode")
+	url, err := h.service.RetriveOriginalURL(shortCode)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "URL not found",
+		})
+	}
+
+	c.JSON(http.StatusOK, url)
+}

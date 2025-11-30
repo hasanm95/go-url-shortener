@@ -15,25 +15,25 @@ import (
 func main(){
 	cfg := config.Load()
 
-  db, err := database.NewPostgresDB(cfg.DatabaseURL)
+  	db, err := database.NewPostgresDB(cfg.DatabaseURL)
 
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
 	defer db.Close()
 
-  repo := repository.NewPostgresRepository(db)
+  	repo := repository.NewPostgresRepository(db)
 
-  urlService := service.NewURLService(repo)
-  urlHandler := handler.NewURLHandler(urlService)
+  	urlService := service.NewURLService(repo)
+  	urlHandler := handler.NewURLHandler(urlService)
 
 	r := router.SetupRouter(urlHandler)
 
-  port := fmt.Sprintf(":%s", cfg.Port)
+	port := fmt.Sprintf(":%s", cfg.Port)
 
-  log.Printf("Server will run on port %v", port)
+	log.Printf("Server will run on port %v", port)
 
-  if err := r.Run(port); err != nil {
-    log.Fatalf("failed to run server: %v", err)
-  }
+	if err := r.Run(port); err != nil {
+		log.Fatalf("failed to run server: %v", err)
+	}
 }

@@ -10,6 +10,7 @@ func SetupRouter(urlHandler *handler.URLHandler) *gin.Engine{
 	r := gin.Default()
 
 	r.POST("/shorten", urlHandler.CreateShortURL)
+	r.GET("/shorten/:shortCode", urlHandler.RetriveOriginalURL)
 	r.GET("/:shortCode", urlHandler.RedirectURL)
 
 	return r

@@ -48,3 +48,13 @@ func (s *URLService) GetOriginalURL(shortCode string) (string, error) {
 
 	return url.OriginalURL, nil
 }
+
+func (s *URLService) RetriveOriginalURL(shortCode string) (*models.URL, error) {
+	url, err := s.repository.GetByShortCode(shortCode)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return url, nil
+}
