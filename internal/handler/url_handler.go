@@ -69,3 +69,24 @@ func (h *URLHandler) RetriveOriginalURL(c *gin.Context){
 
 	c.JSON(http.StatusOK, url)
 }
+
+func (h *URLHandler) UpdateShortURL(c *gin.Context){
+	var req ShortenRequest
+	shortCode := c.Param("shortCode")
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "URL is required"})
+		return
+	}
+
+	url, err := h.service.UpdateShortURL(shortCode, req.URL)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "URL not found",
+		})
+	}
+
+
+	c.JSON(http.StatusOK, url)
+}

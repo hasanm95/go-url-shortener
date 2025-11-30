@@ -61,3 +61,18 @@ func (r *PostgresRepository) UpdateShortCode(id int, shortCode string) error {
 	}
 	return nil
 }
+
+func (r *PostgresRepository) UpdateShortURL(shortCode string, url string) (*models.URL, error) {
+	query := `UPDATE urls SET original_url = $2 WHERE id = $1`
+	_, err := r.db.Exec(query, shortCode, url)
+
+	if err != nil {
+		return nil, fmt.Errorf("error updating short code: %w", err)
+	}
+	urlObj, err := r.GetByShortCode(shortCode)
+
+	if err != nil {
+		return nil, fmt.Errorf("error fetching short code: %w", err)
+	}
+	return urlObj, nil
+}

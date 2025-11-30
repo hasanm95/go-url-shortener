@@ -7,4 +7,5 @@ type URLRepository interface {
 	GetByShortCode(shortCode string) (*models.URL, error)
 	IncrementClicks(shortCode string) error
 	UpdateShortCode(id int, shortCode string) error
+	UpdateShortURL(shortCode string, url string) (*models.URL, error)
 }
